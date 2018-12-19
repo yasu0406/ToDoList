@@ -15,6 +15,7 @@ import {
     TextInput,
     TouchableOpacity,
 } from "react-native";
+import TodoList from './TodoList';
 
 export default class App extends Component<> {
     state = {
@@ -36,8 +37,12 @@ export default class App extends Component<> {
         })
     }
 
+    onPressDelete(index) {
+        this.setState({
+            todos: this.state.todos.filter((t, i) => i !== index),
+        });
+    }
     render() {
-        console.log(this.state);
         return (
             <View styles={styles.container}>
                 <TextInput
@@ -51,6 +56,10 @@ export default class App extends Component<> {
                 >
                     <Text style={styles.addButtonText}>ADD</Text>
                 </TouchableOpacity>
+                <TodoList
+                    todos={this.state.todos}
+                    onPressDelete={(index)=>this.onPressDelete(index)}
+                />
             </View>
         )
     }
@@ -75,5 +84,5 @@ const styles = StyleSheet.create({
         color:'#fff',
         textAlign: 'center',
         fontWeight: 'bold',
-    }
+    },
 });
